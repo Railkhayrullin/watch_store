@@ -1,0 +1,8 @@
+*.pyc
+watch_store/local_settings.py
+.DS_Store
+.idea/*
+.idea
+static
+media
+db.sqlite3
