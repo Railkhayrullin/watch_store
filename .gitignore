@@ -1,5 +1,5 @@
 *.pyc
-watch_store/local_settings.py
+local_settings.py
 .DS_Store
 .idea/*
 .idea
