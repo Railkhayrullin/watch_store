@@ -3,7 +3,7 @@ from django.db import models
 
 class Category(models.Model):
     title = models.CharField('category', max_length=255, blank=False)
-    slug = models.SlugField('slug', max_length=255, blank=False)
+    slug = models.SlugField('slug', max_length=255, blank=False, unique=True)
     publish = models.BooleanField('publish', default=True)
 
     def __str__(self):
@@ -16,7 +16,7 @@ class Category(models.Model):
 
 class CaseMaterial(models.Model):
     title = models.CharField('case material', max_length=255, blank=False)
-    slug = models.SlugField('slug', max_length=255, blank=False)
+    slug = models.SlugField('slug', max_length=255, blank=False, unique=True)
     publish = models.BooleanField('publish', default=True)
 
     def __str__(self):
@@ -29,7 +29,7 @@ class CaseMaterial(models.Model):
 
 class Country(models.Model):
     title = models.CharField('country', max_length=255, blank=False)
-    slug = models.SlugField('slug', max_length=255, blank=False)
+    slug = models.SlugField('slug', max_length=255, blank=False, unique=True)
     publish = models.BooleanField('publish', default=True)
 
     def __str__(self):
@@ -42,7 +42,7 @@ class Country(models.Model):
 
 class Brand(models.Model):
     title = models.CharField('brand', max_length=255, blank=False)
-    slug = models.SlugField('slug', max_length=255, blank=False)
+    slug = models.SlugField('slug', max_length=255, blank=False, unique=True)
     publish = models.BooleanField('publish', default=True)
 
     def __str__(self):
@@ -59,7 +59,9 @@ class Product(models.Model):
     case_material = models.ForeignKey(CaseMaterial, related_name='case_material_products', on_delete=models.CASCADE)
     country = models.ForeignKey(Country, related_name='country_products', on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, related_name='brand_products', on_delete=models.CASCADE)
-    slug = models.SlugField('slug', max_length=255, blank=False)
+    image = models.ImageField("image", upload_to='images/', default='no_image.jpg',
+                              help_text='Image resolution 380x361')
+    slug = models.SlugField('slug', max_length=255, blank=False, unique=True)
     publish = models.BooleanField('publish', default=True)
 
     def __str__(self):
