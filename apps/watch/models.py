@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse_lazy
 
 
 class Category(models.Model):
@@ -12,6 +13,9 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'category'
         verbose_name_plural = 'categories'
+
+    def get_watch(self):
+        return self.category_products.all()
 
 
 class CaseMaterial(models.Model):
@@ -55,21 +59,32 @@ class Brand(models.Model):
 
 class Product(models.Model):
     title = models.CharField('watch', max_length=255, blank=False)
+    slug = models.SlugField('slug', max_length=255, blank=False, unique=True)
     category = models.ForeignKey(Category, related_name='category_products', on_delete=models.CASCADE)
     case_material = models.ForeignKey(CaseMaterial, related_name='case_material_products', on_delete=models.CASCADE)
     country = models.ForeignKey(Country, related_name='country_products', on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, related_name='brand_products', on_delete=models.CASCADE)
     image = models.ImageField("image", upload_to='images/', default='no_image.jpg',
                               help_text='Image resolution 380x361')
-    slug = models.SlugField('slug', max_length=255, blank=False, unique=True)
+    with_discount = models.BooleanField('with discount', default=False)
     publish = models.BooleanField('publish', default=True)
 
     def __str__(self):
         return self.title
 
     class Meta:
+        ordering = ['category']
         verbose_name = 'watch'
         verbose_name_plural = 'watch'
+
+    def get_absolute_url(self):
+        return reverse_lazy('watch', kwargs={'slug': self.slug})
+
+    def get_price(self):
+        if self.with_discount:
+            return self.product_prices.get(price_type__title='discounted').price
+        else:
+            return self.product_prices.get(price_type__title='regular').price
 
 
 class PriceType(models.Model):

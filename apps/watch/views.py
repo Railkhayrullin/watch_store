@@ -2,11 +2,18 @@ from django.shortcuts import render
 from django.http import Http404
 
 from django.views.generic import ListView, DetailView
+from apps.watch.models import Product, Price
 from apps.pages.models import About, Contact, News
 
 
 def index(request):
-    return render(request, 'watch/index.html')
+    context = {}
+
+    discount = Product.objects.filter(publish=True, with_discount=True)
+    context['discount'] = discount
+    new_arrival = Product.objects.filter(publish=True,).order_by('-pk')[:3]
+    context['new_arrival'] = new_arrival
+    return render(request, 'watch/index.html', context)
 
 
 def about(request):
@@ -31,8 +38,12 @@ def contact(request):
     return render(request, 'watch/contact.html', context)
 
 
-def shop(request):
-    return render(request, 'watch/shop.html')
+class ShopListView(ListView):
+    model = Product
+    queryset = Product.objects.filter(publish=True)
+    template_name = 'watch/shop.html'
+# def shop(request):
+#     return render(request, 'watch/shop.html')
 
 
 class BlogListView(ListView):
@@ -40,3 +51,7 @@ class BlogListView(ListView):
     model = News
     template_name = 'watch/blog.html'
 
+
+class WatchDetailView(DetailView):
+    model = Product
+    template_name = 'watch/product_detail.html'

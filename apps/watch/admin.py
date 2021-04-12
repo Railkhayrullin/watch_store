@@ -20,7 +20,7 @@ class CaseMaterialAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['title', 'publish']
+    list_display = ['title', 'slug', 'publish']
     list_editable = ['publish', ]
     prepopulated_fields = {'slug': ('title',)}
 
@@ -45,10 +45,12 @@ class PriceInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['title', 'category', 'country', 'brand', 'get_image', 'publish']
-    list_editable = ['publish', ]
+    save_on_top = True
+    list_display = ['title', 'category', 'brand', 'get_image', 'with_discount', 'publish']
+    list_editable = ['with_discount', 'publish']
     inlines = [PriceInline, ]
     prepopulated_fields = {'slug': ('title',)}
+    list_filter = ['category', 'brand', 'case_material', 'with_discount', 'publish']
 
     def get_image(self, obj):
         return mark_safe(f'<img src={obj.image.url} width="80" height="75">')
