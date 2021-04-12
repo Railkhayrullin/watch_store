@@ -24,6 +24,15 @@
     <div class="container">
         <div class="row">
             <div class="offset-xl-1 col-lg-8">
+                <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">О нас</li>
+                    </ol>
+                </nav>
+            </div>
+            <br>
+            <div class="offset-xl-1 col-lg-8">
                 {% for about in page.about_about_items.all %}
                     <div class="about-details-cap mb-50">
                         <h4>{{ about.title }}</h4>
