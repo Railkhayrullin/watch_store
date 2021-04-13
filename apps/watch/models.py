@@ -88,6 +88,12 @@ class Product(models.Model):
         if self.product_prices.filter(price_type__title='discounted').exists():
             return self.product_prices.get(price_type__title='discounted').price
 
+    def get_current_price(self):
+        if not self.with_discount:
+            return self.get_regular_price()
+        else:
+            return self.get_discounted_price()
+
 
 class PriceType(models.Model):
     title = models.CharField('brand', max_length=255, blank=False)

@@ -40,7 +40,7 @@
                                     </div>
                                 </div>
                                 <div class="popular-caption">
-                                    <h3><a href="{{ watch.get_absolute_url }}">{{ watch.title }}</a></h3>
+                                    <h3><a href="{{ watch.get_absolute_url }}#breadcrumb">{{ watch.title }}</a></h3>
                                     {% if watch.with_discount %}
                                         <span><del>${{ watch.get_regular_price }}</del> ${{ watch.get_discounted_price }}</span>
                                     {% else %}

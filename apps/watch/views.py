@@ -1,10 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import Http404
+from django.db.models import Q
+from django.contrib.sessions.models import Session
+from django.urls import reverse_lazy
 
 from django.views.generic import ListView, DetailView
 from apps.watch.models import Product
 from apps.pages.models import About, Contact, News
-from django.db.models import Q
+from apps.watch.forms import ProductForm
+from apps.orders.models import Order, OrderDetail
 
 
 def index(request):
@@ -45,19 +49,58 @@ class ShopListView(ListView):
     template_name = 'watch/shop.html'
 
 
-# def shop(request):
-#     return render(request, 'watch/shop.html')
-
-
 class BlogListView(ListView):
     paginate_by = 3
     model = News
     template_name = 'watch/blog.html'
 
 
-class WatchDetailView(DetailView):
-    model = Product
-    template_name = 'watch/product_detail.html'
+def product_detail(request, slug):
+    context = {}
+
+    if Product.objects.filter(slug=slug).exists():
+        product = Product.objects.get(slug=slug)
+        context['product'] = product
+    else:
+        raise Http404('Страница не найдена')
+
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            order = get_current_order(request)
+            count = form.cleaned_data['count']
+
+            if order.details.filter(product=product).exists():
+                # calc exists order_details
+                order_details = order.details.filter(product=product).first()
+                order_details.count += count
+                order_details.save()
+            else:
+                # create new order_details
+                order_details = OrderDetail()
+                order_details.order = order
+                order_details.count = count
+                order_details.product = product
+                order_details.price = product.get_current_price()
+                order_details.save()
+        context['success'] = True
+        context['form'] = ProductForm()
+
+    else:
+
+        context['form'] = ProductForm()
+    return render(request, 'watch/product_detail.html', context)
+
+
+def get_current_order(request):
+    if Order.objects.filter(session__session_key=request.session.session_key):
+        return Order.objects.filter(session__session_key=request.session.session_key).first()
+    else:
+        order = Order()
+        session = Session.objects.get(session_key=request.session.session_key)
+        order.session = session
+        order.save()
+        return order
 
 
 class SearchResultsView(ListView):

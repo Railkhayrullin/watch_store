@@ -1,3 +1,4 @@
+from django.contrib.sessions.models import Session
 from django.db import models
 
 from apps.client_profile.models import Profile
@@ -6,7 +7,8 @@ from apps.watch.models import Product
 
 class Order(models.Model):
     date = models.DateTimeField('datetime', auto_now_add=True)
-    client_profile = models.ForeignKey(Profile, related_name='profile_orders', on_delete=models.CASCADE)
+    client_profile = models.ForeignKey(Profile, related_name='profile_orders', on_delete=models.CASCADE, blank=True, null=True)
+    session = models.ForeignKey(Session, related_name='session_orders', on_delete=models.SET_NULL, blank=True, null=True)
 
 
 class OrderDetail(models.Model):
