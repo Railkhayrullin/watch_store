@@ -73,18 +73,20 @@ class Product(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['category']
+        ordering = ['-id']
         verbose_name = 'watch'
         verbose_name_plural = 'watch'
 
     def get_absolute_url(self):
         return reverse_lazy('watch', kwargs={'slug': self.slug})
 
-    def get_price(self):
-        if self.with_discount:
-            return self.product_prices.get(price_type__title='discounted').price
-        else:
+    def get_regular_price(self):
+        if self.product_prices.filter(price_type__title='regular').exists():
             return self.product_prices.get(price_type__title='regular').price
+
+    def get_discounted_price(self):
+        if self.product_prices.filter(price_type__title='discounted').exists():
+            return self.product_prices.get(price_type__title='discounted').price
 
 
 class PriceType(models.Model):
@@ -103,3 +105,6 @@ class Price(models.Model):
 
     def __str__(self):
         return self.product.title
+
+    class Meta:
+        unique_together = 'product', 'price_type'

@@ -21,9 +21,13 @@
                 <div class="header-right">
                     <ul>
                         <li>
-                            <div class="nav-search search-switch">
-                                <span class="flaticon-search"></span>
-                            </div>
+{#                            <div class="nav-search search-switch">#}
+{#                                <span class="flaticon-search"></span>#}
+{#                            </div>#}
+                            <form action="{% url 'search_results' %}" method="GET">
+                                <input type="text" name="q"/>
+                                <button type="submit">поиск</button>
+                            </form>
                         </li>
                         <li><a href="{{ STATIC_URL }}cart.html"><span class="flaticon-shopping-cart"></span></a></li>
                     </ul>

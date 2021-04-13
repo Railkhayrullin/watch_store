@@ -42,6 +42,8 @@ INSTALLED_APPS = [
 
     'apps.watch.apps.WatchConfig',
     'apps.pages.apps.BlogConfig',
+    'apps.orders.apps.OrdersConfig',
+    'apps.client_profile.apps.ClientProfileConfig',
 ]
 
 MIDDLEWARE = [
@@ -114,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Yekaterinburg'
 
 USE_I18N = True
 

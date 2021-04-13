@@ -59,16 +59,27 @@
                         </div>
                         <div class="product-caption">
                             <h3><a href="{{ watch.get_absolute_url }}">{{ watch.title }}</a></h3>
-                            <span>${{ watch.get_price }}</span>
+                            {% if watch.with_discount %}
+                                <span><del>${{ watch.get_regular_price }}</del> ${{ watch.get_discounted_price }}</span>
+                            {% else %}
+                                <span>${{ watch.get_regular_price }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
+        {% if not discount %}
+            <div class="row justify-content-center">
+                <div class="room-btn pt-70">
+                    <a href="{% url 'shop' %}" class="btn view-btn1">Посмотреть все товары</a>
+                </div>
+            </div>
+        {% endif %}
     </div>
 </section>
 <!--  New Product End -->
-<!--? Gallery Area Start -->
+{% if discount %}
 <div class="gallery-area">
     <div class="container-fluid p-0 fix">
         <div class="row">
@@ -104,7 +115,6 @@
         </div>
     </div>
 </div>
-<!-- Gallery Area End -->
 <!--? Popular Items Start -->
 <div class="popular-items section-padding30">
     <div class="container">
@@ -113,30 +123,24 @@
             <div class="col-xl-7 col-lg-8 col-md-10">
                 <div class="section-tittle mb-70 text-center">
                     <h2 style="color: #db0303">Товары со скидкой</h2>
-                    <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-                        aliqua. Quis ipsum suspendisse ultrices gravida.</p>
+                    <p>Товары по выгодной цене со скидкой до 50%.</p>
                 </div>
             </div>
         </div>
         <div class="row">
             {% for watch in discount %}
             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                <div class="single-popular-items mb-50 text-center">
-                    <div class="popular-img">
+                <div class="single-new-pro mb-30 text-center">
+                    <div class="product-img">
                         <img src="{{ watch.image.url }}" alt="">
-                        <div class="img-cap">
-                            <span>Добавить в корзину</span>
-                        </div>
                     </div>
-                    <div class="popular-caption">
+                    <div class="product-caption">
                         <h3><a href="{{ watch.get_absolute_url }}">{{ watch.title }}</a></h3>
-                        <span>${{ watch.get_price }}</span>
+                        <span><del>${{ watch.get_regular_price }}</del> ${{ watch.get_discounted_price }}</span>
                     </div>
                 </div>
             </div>
             {% endfor %}
-
-
         </div>
         <!-- Button -->
         <div class="row justify-content-center">
@@ -146,6 +150,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 <!--? Shop Method Start-->
 <div class="shop-method-area">
     <div class="container">

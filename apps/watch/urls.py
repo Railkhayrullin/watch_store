@@ -9,5 +9,6 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('blog/', views.BlogListView.as_view(), name='blog'),
     path('watch/<slug:slug>', views.WatchDetailView.as_view(), name='watch'),
+    path('search/', views.SearchResultsView.as_view(), name='search_results'),
     # path("", views.FoodsView.as_view(), name="home"),
 ]

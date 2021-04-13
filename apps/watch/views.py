@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.http import Http404
 
 from django.views.generic import ListView, DetailView
-from apps.watch.models import Product, Price
+from apps.watch.models import Product
 from apps.pages.models import About, Contact, News
+from django.db.models import Q
 
 
 def index(request):
@@ -11,7 +12,7 @@ def index(request):
 
     discount = Product.objects.filter(publish=True, with_discount=True)
     context['discount'] = discount
-    new_arrival = Product.objects.filter(publish=True,).order_by('-pk')[:3]
+    new_arrival = Product.objects.filter(publish=True, ).order_by('-pk')[:3]
     context['new_arrival'] = new_arrival
     return render(request, 'watch/index.html', context)
 
@@ -42,6 +43,8 @@ class ShopListView(ListView):
     model = Product
     queryset = Product.objects.filter(publish=True)
     template_name = 'watch/shop.html'
+
+
 # def shop(request):
 #     return render(request, 'watch/shop.html')
 
@@ -55,3 +58,19 @@ class BlogListView(ListView):
 class WatchDetailView(DetailView):
     model = Product
     template_name = 'watch/product_detail.html'
+
+
+class SearchResultsView(ListView):
+    model = Product
+    template_name = 'watch/search_results.html'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        object_list = Product.objects.filter(
+            Q(title__contains=query) |
+            Q(category__title__contains=query) |
+            Q(case_material__title__contains=query) |
+            Q(country__title__contains=query) |
+            Q(brand__title__contains=query)
+        )
+        return object_list

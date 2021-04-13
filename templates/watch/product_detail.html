@@ -65,10 +65,14 @@
                                 <input class="product_count_item input-number" type="text" value="1" min="0" max="10">
                                 <span class="product_count_item number-increment"> <i class="ti-plus"></i></span>
                             </div>
-                            <p>${{ product.get_price }}</p>
+                            {% if product.with_discount %}
+                                    <span>${{ product.get_discounted_price }}<del> ${{ product.get_regular_price }}</del></span>
+                                {% else %}
+                                    <span>${{ product.get_regular_price }}</span>
+                                {% endif %}
                         </div>
                     <div class="add_to_cart">
-                        <a href="#" class="btn_3">add to cart</a>
+                        <a href="#" class="btn_3">Добавить в корзину</a>
                     </div>
                     </div>
                 </div>

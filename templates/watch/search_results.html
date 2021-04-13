@@ -1,0 +1,58 @@
+{% extends 'watch/base.html' %}
+
+{% block title %}
+Поиск
+{% endblock %}
+
+{% block content %}
+<div class="slider-area ">
+    <div class="single-slider slider-height2 d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="hero-cap text-center">
+                        <h2>Результаты поиска</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="popular-items latest-padding">
+    <div class="container">
+        <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Результаты поиска</li>
+            </ol>
+        </nav>
+        <!-- Nav Card -->
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="row">
+                    {% for watch in product_list %}
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                            <div class="single-popular-items mb-50 text-center">
+                                <div class="popular-img">
+                                    <img src="{{ watch.image.url }}" alt="">
+                                    <div class="img-cap">
+                                        <span>Add to cart</span>
+                                    </div>
+                                </div>
+                                <div class="popular-caption">
+                                    <h3><a href="{{ watch.get_absolute_url }}">{{ watch.title }}</a></h3>
+                                    {% if watch.with_discount %}
+                                        <span><del>${{ watch.get_regular_price }}</del> ${{ watch.get_discounted_price }}</span>
+                                    {% else %}
+                                        <span>${{ watch.get_regular_price }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
