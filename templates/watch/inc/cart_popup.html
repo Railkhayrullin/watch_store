@@ -1,0 +1,20 @@
+<div class="dropdown dropleft">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="hot flaticon-shopping-cart"> {{ order.details.count }}</span>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        {% if order.details.count <= 5 %}
+        {% for detail in order.details.all %}
+        <p class="dropdown-item disabled">Товар: {{ detail.product.title }} <br>Цена: {{ detail.product.get_current_price }}$
+            <br>Количество: {{ detail.count }} </p>
+        <hr>
+        {% endfor %}
+            <a class="dropdown-item" href="#">Перейти к заказу..</a>
+        {% else %}
+            <p class="dropdown-item disabled">Количество товаров в корзине: {{ order.details.count }}</p>
+            <a class="dropdown-item " href="#">Перейти к заказу</a>
+
+        {% endif %}
+    </div>
+</div>

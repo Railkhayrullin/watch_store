@@ -12,21 +12,25 @@
                 <div class="col-xl-12">
                     <div class="hero-cap text-center">
                         <h2>Результаты поиска</h2>
+                        {% if not product_list %}
+                        <br>
+                        <h2 style="color: #db0303; font-size: 400%; text-transform:uppercase;">Совпадений не найдено</h2>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+{% if product_list %}
 <section class="popular-items latest-padding">
     <div class="container">
         <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+                <li id="breadcrumb" class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Результаты поиска</li>
             </ol>
         </nav>
-        <!-- Nav Card -->
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="row">
@@ -35,12 +39,9 @@
                             <div class="single-popular-items mb-50 text-center">
                                 <div class="popular-img">
                                     <img src="{{ watch.image.url }}" alt="">
-                                    <div class="img-cap">
-                                        <span>Add to cart</span>
-                                    </div>
                                 </div>
                                 <div class="popular-caption">
-                                    <h3><a href="{{ watch.get_absolute_url }}#breadcrumb">{{ watch.title }}</a></h3>
+                                    <h3><a href="{{ watch.get_absolute_url }}">{{ watch.title }}</a></h3>
                                     {% if watch.with_discount %}
                                         <span><del>${{ watch.get_regular_price }}</del> ${{ watch.get_discounted_price }}</span>
                                     {% else %}
@@ -53,6 +54,7 @@
                 </div>
             </div>
         </div>
+    {% endif %}
     </div>
 </section>
 {% endblock %}
