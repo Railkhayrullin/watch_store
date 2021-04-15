@@ -5,9 +5,11 @@ from apps.orders.models import Order, OrderDetail
 class OrderDetailInline(admin.TabularInline):
     model = OrderDetail
     extra = 0
+    fields = ['product', 'count', 'price', 'get_total_order']
+    readonly_fields = ['get_total_order']
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'client_profile', 'date']
+    list_display = ['date', 'client_profile', 'get_total', 'id']
     inlines = [OrderDetailInline, ]

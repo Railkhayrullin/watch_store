@@ -97,6 +97,8 @@ def get_current_order(request):
         return Order.objects.filter(session__session_key=request.session.session_key).first()
     else:
         order = Order()
+        if not request.session.session_key:
+            request.session.save()
         session = Session.objects.get(session_key=request.session.session_key)
         order.session = session
         order.save()

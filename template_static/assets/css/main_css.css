@@ -76,3 +76,8 @@ sup.hot {
     margin-top: 0.1em; /* Отступ сверху */
     margin-bottom: 0.1em;
 }
+.dropdown-menu .genric-btn.danger-border {
+    line-height: 35px;
+    padding: 0 10px;
+
+}

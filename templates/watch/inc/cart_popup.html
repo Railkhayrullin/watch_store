@@ -1,20 +1,30 @@
 <div class="dropdown dropleft">
     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="hot flaticon-shopping-cart"> {{ order.details.count }}</span>
+            <span class="hot flaticon-shopping-cart">
+                {% if order.details.count %} {{ order.details.count }}{% endif %}
+            </span>
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        {% if order.details.count <= 5 %}
-        {% for detail in order.details.all %}
-        <p class="dropdown-item disabled">Товар: {{ detail.product.title }} <br>Цена: {{ detail.product.get_current_price }}$
-            <br>Количество: {{ detail.count }} </p>
-        <hr>
-        {% endfor %}
-            <a class="dropdown-item" href="#">Перейти к заказу..</a>
+        {% if order.details.count == 0 %}
+            <p class="dropdown-item disabled">В корзине пока пусто</p>
+        {% elif order.details.count <= 5 %}
+            {% for detail in order.details.all %}
+                <p class="dropdown-item disabled">
+                    Товар: {{ detail.product.title }} <br>
+                    Цена: {{ detail.product.get_current_price }} руб.<br>
+                    Количество: {{ detail.count }}
+                </p>
+                <hr>
+            {% endfor %}
+            <p class="dropdown-item" href="#">Сумма: {{ order.get_total }} руб. <a href="#"
+                                                                                class="genric-btn danger-border">Перейти
+                к заказу</a></p>
         {% else %}
             <p class="dropdown-item disabled">Количество товаров в корзине: {{ order.details.count }}</p>
-            <a class="dropdown-item " href="#">Перейти к заказу</a>
-
+            <p class="dropdown-item disabled">Сумма: {{ order.get_total }} руб.<a href="#"
+                                                                               class="genric-btn danger-border">Перейти
+                к заказу</a></p>
         {% endif %}
     </div>
 </div>

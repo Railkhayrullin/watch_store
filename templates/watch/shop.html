@@ -61,9 +61,9 @@
                                     <div class="popular-caption">
                                         <h3><a href="{{ watch.get_absolute_url }}#breadcrumb">{{ watch.title }}</a></h3>
                                         {% if watch.with_discount %}
-                                            <span><del>${{ watch.get_regular_price }}</del> ${{ watch.get_discounted_price }}</span>
+                                            <span><del>{{ watch.get_regular_price }} руб.</del> {{ watch.get_discounted_price }} руб.</span>
                                         {% else %}
-                                            <span>${{ watch.get_regular_price }}</span>
+                                            <span>{{ watch.get_regular_price }} руб.</span>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -85,9 +85,9 @@
                             <div class="popular-caption">
                                 <h3><a href="{{ watch.get_absolute_url }}#breadcrumb">{{ watch.title }}</a></h3>
                                 {% if watch.with_discount %}
-                                    <span>${{ watch.get_discounted_price }}<del> ${{ watch.get_regular_price }}</del></span>
+                                    <span>{{ watch.get_discounted_price }} руб.<del> {{ watch.get_regular_price }} руб.</del></span>
                                 {% else %}
-                                    <span>${{ watch.get_regular_price }}</span>
+                                    <span>{{ watch.get_regular_price }} руб.</span>
                                 {% endif %}
                             </div>
                         </div>
