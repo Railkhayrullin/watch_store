@@ -79,5 +79,13 @@ sup.hot {
 .dropdown-menu .genric-btn.danger-border {
     line-height: 35px;
     padding: 0 10px;
-
+}
+.media .media-body a {
+    color: #0b0b0b;
+}
+.media .media-body a:hover {
+    color: #fa0303;
+}
+.media .media-body h5 {
+    color: #0b0b0b;
 }

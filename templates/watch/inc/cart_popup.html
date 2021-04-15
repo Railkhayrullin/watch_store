@@ -17,12 +17,12 @@
                 </p>
                 <hr>
             {% endfor %}
-            <p class="dropdown-item" href="#">Сумма: {{ order.get_total }} руб. <a href="#"
+            <p class="dropdown-item" href="#">Сумма: {{ order.get_total }} руб. <a href="{% url 'cart' %}"
                                                                                 class="genric-btn danger-border">Перейти
                 к заказу</a></p>
         {% else %}
             <p class="dropdown-item disabled">Количество товаров в корзине: {{ order.details.count }}</p>
-            <p class="dropdown-item disabled">Сумма: {{ order.get_total }} руб.<a href="#"
+            <p class="dropdown-item disabled">Сумма: {{ order.get_total }} руб.<a href="{% url 'cart' %}"
                                                                                class="genric-btn danger-border">Перейти
                 к заказу</a></p>
         {% endif %}
