@@ -35,3 +35,10 @@ class OrderDetail(models.Model):
     def get_total_order(self):
         return self.count * self.price
     get_total_order.short_description = 'total order'
+
+    def get_discount_order(self):
+        default_total = self.product.get_regular_price() * self.count
+        discount_total_order = default_total - self.get_total_order()
+        return discount_total_order
+
+    get_discount_order.short_description = 'total discount'

@@ -17,7 +17,7 @@
                 </p>
                 <hr>
             {% endfor %}
-            <p class="dropdown-item" href="#">Сумма: {{ order.get_total }} руб. <a href="{% url 'cart' %}"
+            <p class="dropdown-item">Сумма: {{ order.get_total }} руб. <a href="{% url 'cart' %}"
                                                                                 class="genric-btn danger-border">Перейти
                 к заказу</a></p>
         {% else %}

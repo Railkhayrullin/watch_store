@@ -28,14 +28,18 @@
                         <li class="breadcrumb-item active" aria-current="page">Корзина</li>
                     </ol>
                 </nav>
+          {% if order.details.count != 0 %}
+
             <div class="table-responsive">
               <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">Товар</th>
+                    <th scope="col" id="table">Товар</th>
                     <th scope="col">Цена</th>
                     <th scope="col">Количество</th>
                     <th scope="col">Сумма</th>
+                    <th scope="col">Скидка</th>
+                    <th scope="col"><a href="{% url 'delete_cart' %}#breadcrumb" class="btn btn-primary" role="button" title="Очистить корзину" aria-pressed="true">Очистить корзину</a></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -67,78 +71,28 @@
                                 <h5><nobr>{{ detail.get_total_order }} руб.</nobr></h5>
                             </div>
                         </td>
+                        <td>
+                            <div class="product_count">
+                                <h5 style="color: red"><nobr>{{ detail.get_discount_order }} руб.</nobr></h5>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="product_count">
+                                <a href="{% url 'delete_product' detail.pk %}#breadcrumb" class="btn btn-primary" role="button" title="Удалить {{ detail.product.title }}" aria-pressed="true">X</a>
+                            </div>
+                        </td>
                     </tr>
                 {% endfor %}
-
-
-
-
-
-                  <tr class="bottom_button">
-                    <td>
-                      <a class="btn_1" href="#">Update Cart</a>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                      <div class="cupon_text float-right">
-                        <a class="btn_1" href="#">Close Coupon</a>
-                      </div>
-                    </td>
-                  </tr>
                   <tr>
+                    <td></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td>
                       <h5>Общая сумма</h5>
                     </td>
                     <td>
-                      <h5>{{ order.get_total }} руб.</h5>
-                    </td>
-                  </tr>
-                  <tr class="shipping_area">
-                    <td></td>
-                    <td></td>
-                    <td>
-                      <h5>Shipping</h5>
-                    </td>
-                    <td>
-                      <div class="shipping_box">
-                        <ul class="list">
-                          <li>
-                            Flat Rate: $5.00
-                            <input type="radio" aria-label="Radio button for following text input">
-                          </li>
-                          <li>
-                            Free Shipping
-                            <input type="radio" aria-label="Radio button for following text input">
-                          </li>
-                          <li>
-                            Flat Rate: $10.00
-                            <input type="radio" aria-label="Radio button for following text input">
-                          </li>
-                          <li class="active">
-                            Local Delivery: $2.00
-                            <input type="radio" aria-label="Radio button for following text input">
-                          </li>
-                        </ul>
-                        <h6>
-                          Calculate Shipping
-                          <i class="fa fa-caret-down" aria-hidden="true"></i>
-                        </h6>
-                        <select class="shipping_select">
-                          <option value="1">Bangladesh</option>
-                          <option value="2">India</option>
-                          <option value="4">Pakistan</option>
-                        </select>
-                        <select class="shipping_select section_bg">
-                          <option value="1">Select a State</option>
-                          <option value="2">Select a State</option>
-                          <option value="4">Select a State</option>
-                        </select>
-                        <input class="post_code" type="text" placeholder="Postcode/Zipcode" />
-                        <a class="btn_1" href="#">Update Details</a>
-                      </div>
+                      <h5><nobr>{{ order.get_total }} руб.</nobr></h5>
                     </td>
                   </tr>
                 </tbody>
@@ -148,6 +102,20 @@
                 <a class="btn_1 checkout_btn_1" href="{% url 'shop' %}">Оформить заказ</a>
               </div>
             </div>
+          {% else %}
+              <div class="empty">
+                  <h2>В корзине пусто</h2>
+                  <div class="hero__img" data-animation="bounceIn" data-delay=".4s">
+                      <img src="{{ STATIC_URL }}assets/img/cart_empt.png" alt="" class=" heartbeat">
+                      <br>
+                      <hr>
+                  </div>
+                  <div class="hero__btn" data-animation="fadeInLeft" data-delay=".8s" data-duration="2000ms"
+                       style="animation-delay: 0.8s;">
+                      <a href="{% url 'shop' %}" class="btn hero-btn">К покупкам</a>
+                  </div>
+              </div>
+          {% endif %}
           </div>
       </section>
 {% endblock %}
