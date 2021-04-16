@@ -4,6 +4,9 @@ from .forms import OrderForm
 
 
 # Create your views here.
+from .models import Status
+
+
 def cart(request):
     context = {}
     order = get_current_order(request)
@@ -31,5 +34,13 @@ def checkout(request):
     context = {}
     order = get_current_order(request)
     context['order'] = order
+
+    if request.method == 'POST':
+        form = OrderForm(request.POST, instance=order)
+        if form.is_valid():
+            form.save()
+            order.status = Status.objects.get(slug='waiting')
+            order.save()
+            context['result'] = True
     context['form'] = OrderForm()
     return render(request, 'orders/checkout.html', context)

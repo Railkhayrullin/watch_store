@@ -79,6 +79,7 @@ sup.hot {
 .dropdown-menu .genric-btn.danger-border {
     line-height: 35px;
     padding: 0 10px;
+    margin-left: 20px;
 }
 .media .media-body a {
     color: #0b0b0b;
@@ -172,4 +173,14 @@ sup.hot {
 }
 .checkout_area .order_box .list li a:hover {
     color: #0c2e60;
+}
+.billing_details .contact_form .form-group .creat_account label {
+    margin-left: 40%;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 70%;
+}
+.billing_details .contact_form .form-group .btn_3 {
+    margin-left: 40%;
+    vertical-align: middle;
 }

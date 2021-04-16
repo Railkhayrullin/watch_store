@@ -54,11 +54,38 @@
                         <div class="row">
                             {% for watch in product_list %}
                                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                <div class="single-popular-items mb-50 text-center">
-                                    <div class="popular-img">
-                                       <a href="{{ watch.get_absolute_url }}#breadcrumb"><img src="{{ watch.image.url }}" alt=""></a>
+                                    <div class="single-new-pro mb-30 text-center">
+                                        <div class="product-img">
+                                            <a href="{{ watch.get_absolute_url }}#breadcrumb"><img
+                                                    src="{{ watch.image.url }}" alt=""></a>
+                                        </div>
+                                        <div class="product-caption">
+                                            <h3><a href="{{ watch.get_absolute_url }}#breadcrumb">{{ watch.title }}</a>
+                                            </h3>
+                                            {% if watch.with_discount %}
+                                                <span><del>{{ watch.get_regular_price }} руб.</del> {{ watch.get_discounted_price }} руб.</span>
+                                            {% else %}
+                                                <span>{{ watch.get_regular_price }} руб.</span>
+                                            {% endif %}
+                                        </div>
                                     </div>
-                                    <div class="popular-caption">
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+            <!-- card one -->
+            {% for category in categories %}
+                <div class="tab-pane fade" id="nav-{{ category.slug }}" role="tabpanel"
+                     aria-labelledby="nav-{{ category.slug }}-tab">
+                    <div class="row">
+                        {% for watch in category.get_watch %}
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                <div class="single-new-pro mb-30 text-center">
+                                    <div class="product-img">
+                                        <a href="{{ watch.get_absolute_url }}#breadcrumb"><img
+                                                src="{{ watch.image.url }}" alt=""></a>
+                                    </div>
+                                    <div class="product-caption">
                                         <h3><a href="{{ watch.get_absolute_url }}#breadcrumb">{{ watch.title }}</a></h3>
                                         {% if watch.with_discount %}
                                             <span><del>{{ watch.get_regular_price }} руб.</del> {{ watch.get_discounted_price }} руб.</span>
@@ -68,31 +95,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-            <!-- card one -->
-            {% for category in categories %}
-            <div class="tab-pane fade" id="nav-{{ category.slug }}" role="tabpanel" aria-labelledby="nav-{{ category.slug }}-tab">
-                <div class="row">
-                    {% for watch in category.get_watch %}
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                        <div class="single-popular-items mb-50 text-center">
-                            <div class="popular-img">
-                                <a href="{{ watch.get_absolute_url }}#breadcrumb"><img src="{{ watch.image.url }}" alt=""></a>
-
-                            </div>
-                            <div class="popular-caption">
-                                <h3><a href="{{ watch.get_absolute_url }}#breadcrumb">{{ watch.title }}</a></h3>
-                                {% if watch.with_discount %}
-                                    <span>{{ watch.get_discounted_price }} руб.<del> {{ watch.get_regular_price }} руб.</del></span>
-                                {% else %}
-                                    <span>{{ watch.get_regular_price }} руб.</span>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
+                        {% endfor %}
                 </div>
             </div>
             {% endfor %}

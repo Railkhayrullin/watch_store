@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.orders.models import Order, OrderDetail
+from apps.orders.models import Order, OrderDetail, Status
 
 
 class OrderDetailInline(admin.TabularInline):
@@ -11,5 +11,8 @@ class OrderDetailInline(admin.TabularInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['date', 'client_profile', 'get_total', 'id']
+    list_display = ['date', 'client_profile', 'status', 'get_total', 'id']
     inlines = [OrderDetailInline, ]
+
+
+admin.site.register(Status)

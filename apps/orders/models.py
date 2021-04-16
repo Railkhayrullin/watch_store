@@ -5,6 +5,18 @@ from apps.client_profile.models import Profile
 from apps.watch.models import Product
 
 
+class Status(models.Model):
+    title = models.CharField('status', max_length=255, blank=False)
+    slug = models.SlugField('slug', max_length=255, blank=False)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'status'
+        verbose_name_plural = 'status'
+
+
 class Order(models.Model):
     date = models.DateTimeField('datetime', auto_now_add=True)
     client_profile = models.ForeignKey(Profile, related_name='profile_orders', on_delete=models.CASCADE, blank=True,
@@ -20,6 +32,7 @@ class Order(models.Model):
     address = models.CharField('адрес', max_length=255, blank=True, null=True)
     post_code = models.CharField('почтовый индекс', max_length=255, blank=True, null=True)
     comment = models.TextField('комментарии к заказу', max_length=1000, blank=True, null=True)
+    status = models.ForeignKey(Status, related_name='status_orders', on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return str(self.date)
