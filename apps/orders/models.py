@@ -11,6 +11,15 @@ class Order(models.Model):
                                        null=True)
     session = models.ForeignKey(Session, related_name='session_orders', on_delete=models.SET_NULL, blank=True,
                                 null=True)
+    first_name = models.CharField('имя', max_length=255, blank=True, null=True)
+    last_name = models.CharField('фамилия', max_length=255, blank=True, null=True)
+    number = models.CharField('телефон', max_length=20, blank=True, null=True)
+    email = models.EmailField('email', max_length=255, blank=True, null=True)
+    district = models.CharField('область', max_length=255, blank=True, null=True)
+    city = models.CharField('город', max_length=255, blank=True, null=True)
+    address = models.CharField('адрес', max_length=255, blank=True, null=True)
+    post_code = models.CharField('почтовый индекс', max_length=255, blank=True, null=True)
+    comment = models.TextField('комментарии к заказу', max_length=1000, blank=True, null=True)
 
     def __str__(self):
         return str(self.date)

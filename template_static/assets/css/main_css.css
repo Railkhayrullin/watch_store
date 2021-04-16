@@ -154,3 +154,22 @@ sup.hot {
     left: 50%;
     transform: translate(-50%, 0);
 }
+.order_box .payment_item p {
+    line-height: 25px;
+    text-transform: uppercase;
+    color: #415094;
+    background: #f7f7f7;
+    border-color: #0b0b0b;
+    padding: 20px;
+    text-align: center;
+}
+.checkout_area .order_box .list li a .middle {
+    width: 30px;
+    text-align: left;
+    display: inline-block;
+    margin-left: 1px;
+    color: #415094;
+}
+.checkout_area .order_box .list li a:hover {
+    color: #0c2e60;
+}

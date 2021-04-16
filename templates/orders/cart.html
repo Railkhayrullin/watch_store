@@ -19,103 +19,104 @@
           </div>
       </div>
       <!--================Cart Area =================-->
-      <section class="cart_area section_padding">
-        <div class="container">
-          <div class="cart_inner">
-              <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li id="breadcrumb" class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Корзина</li>
-                    </ol>
-                </nav>
-          {% if order.details.count != 0 %}
+<section class="cart_area section_padding">
+<div class="container">
+  <div class="cart_inner">
+      <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li id="breadcrumb" class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Корзина</li>
+            </ol>
+        </nav>
+  {% if order.details.count != 0 %}
 
-            <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col" id="table">Товар</th>
-                    <th scope="col">Цена</th>
-                    <th scope="col">Количество</th>
-                    <th scope="col">Сумма</th>
-                    <th scope="col">Скидка</th>
-                    <th scope="col"><a href="{% url 'delete_cart' %}#breadcrumb" class="btn btn-primary" role="button" title="Очистить корзину" aria-pressed="true">Очистить корзину</a></th>
-                  </tr>
-                </thead>
-                <tbody>
-                {% for detail in order.details.all %}
-                    <tr>
-                        <td>
-                            <div class="media">
-                                <div class="d-flex">
-                                    <a href="{{ detail.product.get_absolute_url }}"><img
-                                            src="{{ detail.product.image.url }}" alt=""></a>
-                                </div>
-                                <div class="media-body">
-                                    <a href="{{ detail.product.get_absolute_url }}">{{ detail.product.title }}</a>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="product_count">
-                                <h5>{{ detail.price }} руб.</h5>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="product_count">
-                                <h5>{{ detail.count }}</h5>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="product_count">
-                                <h5><nobr>{{ detail.get_total_order }} руб.</nobr></h5>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="product_count">
-                                <h5 style="color: red"><nobr>{{ detail.get_discount_order }} руб.</nobr></h5>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="product_count">
-                                <a href="{% url 'delete_product' detail.pk %}#breadcrumb" class="btn btn-primary" role="button" title="Удалить {{ detail.product.title }}" aria-pressed="true">X</a>
-                            </div>
-                        </td>
-                    </tr>
-                {% endfor %}
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                      <h5>Общая сумма</h5>
-                    </td>
-                    <td>
-                      <h5><nobr>{{ order.get_total }} руб.</nobr></h5>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="checkout_btn_inner float-right">
-                <a class="btn_1" href="{% url 'shop' %}">Вернуться к покупкам</a>
-                <a class="btn_1 checkout_btn_1" href="{% url 'shop' %}">Оформить заказ</a>
-              </div>
-            </div>
-          {% else %}
-              <div class="empty">
-                  <h2>В корзине пусто</h2>
-                  <div class="hero__img" data-animation="bounceIn" data-delay=".4s">
-                      <img src="{{ STATIC_URL }}assets/img/cart_empt.png" alt="" class=" heartbeat">
-                      <br>
-                      <hr>
-                  </div>
-                  <div class="hero__btn" data-animation="fadeInLeft" data-delay=".8s" data-duration="2000ms"
-                       style="animation-delay: 0.8s;">
-                      <a href="{% url 'shop' %}" class="btn hero-btn">К покупкам</a>
-                  </div>
-              </div>
-          {% endif %}
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" id="table">Товар</th>
+            <th scope="col">Цена</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Сумма</th>
+            <th scope="col">Скидка</th>
+            <th scope="col"><a href="{% url 'delete_cart' %}#breadcrumb" class="btn btn-primary" role="button" title="Очистить корзину" aria-pressed="true">Очистить корзину</a></th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for detail in order.details.all %}
+            <tr>
+                <td>
+                    <div class="media">
+                        <div class="d-flex">
+                            <a href="{{ detail.product.get_absolute_url }}"><img
+                                    src="{{ detail.product.image.url }}" alt=""></a>
+                        </div>
+                        <div class="media-body">
+                            <a href="{{ detail.product.get_absolute_url }}">{{ detail.product.title }}</a>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="product_count">
+                        <h5>{{ detail.price }} руб.</h5>
+                    </div>
+                </td>
+                <td>
+                    <div class="product_count">
+                        <h5>{{ detail.count }}</h5>
+                    </div>
+                </td>
+                <td>
+                    <div class="product_count">
+                        <h5><nobr>{{ detail.get_total_order }} руб.</nobr></h5>
+                    </div>
+                </td>
+                <td>
+                    <div class="product_count">
+                        <h5 style="color: red"><nobr>{{ detail.get_discount_order }} руб.</nobr></h5>
+                    </div>
+                </td>
+                <td>
+                    <div class="product_count">
+                        <a href="{% url 'delete_product' detail.pk %}#breadcrumb" class="btn btn-primary" role="button" title="Удалить {{ detail.product.title }}" aria-pressed="true">X</a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <h5>Общая сумма</h5>
+            </td>
+            <td>
+              <h5><nobr>{{ order.get_total }} руб.</nobr></h5>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="checkout_btn_inner float-right">
+        <a class="btn_1" href="{% url 'shop' %}">Вернуться к покупкам</a>
+        <a class="btn_1 checkout_btn_1" href="{% url 'checkout' %}">Оформить заказ</a>
+      </div>
+    </div>
+  {% else %}
+      <div class="empty">
+          <h2>В корзине пусто</h2>
+          <div class="hero__img" data-animation="bounceIn" data-delay=".4s">
+              <img src="{{ STATIC_URL }}assets/img/cart_empt.png" alt="" class=" heartbeat">
+              <br>
+              <hr>
           </div>
-      </section>
+          <div class="hero__btn" data-animation="fadeInLeft" data-delay=".8s" data-duration="2000ms"
+               style="animation-delay: 0.8s;">
+              <a href="{% url 'shop' %}" class="btn hero-btn">К покупкам</a>
+          </div>
+      </div>
+  {% endif %}
+  </div>
+</div>
+</section>
 {% endblock %}

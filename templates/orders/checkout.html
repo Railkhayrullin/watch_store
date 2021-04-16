@@ -1,0 +1,126 @@
+{% extends 'watch/base.html' %}
+{% block title %}
+Оформление заказа
+{% endblock %}
+
+{% block content %}
+<div class="slider-area ">
+    <div class="single-slider slider-height2 d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="hero-cap text-center">
+                        <h2>Оформление заказа</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        <!--================Checkout Area =================-->
+<section class="checkout_area section_padding">
+  <div class="container">
+    <div class="billing_details">
+      <div class="row">
+        <div class="col-lg-8">
+          <h3>Детали доставки</h3>
+          <form class="row contact_form" action="#" method="post" novalidate="novalidate">
+              {% csrf_token %}
+            <div class="col-md-6 form-group p_star">
+                {{ form.first_name }}
+{#              <input type="text" class="form-control" id="first" name="name" />#}
+              <span class="placeholder" data-placeholder="Имя"></span>
+            </div>
+            <div class="col-md-6 form-group p_star">
+                {{ form.last_name }}
+{#              <input type="text" class="form-control" id="last" name="name" />#}
+              <span class="placeholder" data-placeholder="Фамилия"></span>
+            </div>
+            <div class="col-md-6 form-group p_star">
+                {{ form.number }}
+{#              <input type="text" class="form-control" id="number" name="number" />#}
+              <span class="placeholder" data-placeholder="Телефон"></span>
+            </div>
+            <div class="col-md-6 form-group p_star">
+                {{ form.email }}
+{#              <input type="text" class="form-control" id="email" name="compemailany" />#}
+              <span class="placeholder" data-placeholder="Email"></span>
+            </div>
+            <div class="col-md-12 form-group p_star">
+                {{ form.district }}
+{#              <input type="text" class="form-control" id="add1" name="add1" />#}
+              <span class="placeholder" data-placeholder="Область"></span>
+            </div>
+            <div class="col-md-12 form-group p_star">
+                {{ form.city }}
+{#              <input type="text" class="form-control" id="city" name="city" />#}
+              <span class="placeholder" data-placeholder="Город"></span>
+            </div>
+            <div class="col-md-12 form-group p_star">
+                {{ form.address }}
+{#              <input type="text" class="form-control" id="add2" name="add2" />#}
+              <span class="placeholder" data-placeholder="Адрес"></span>
+            </div>
+            <div class="col-md-12 form-group p_star">
+                {{ form.post_code }}
+                <span class="placeholder" data-placeholder="Почтовый индекс"></span>
+{#              <input type="text" class="form-control" id="zip" name="zip" placeholder="Почтовый индекс" />#}
+            </div>
+            <div class="col-md-12 form-group">
+                {{ form.comment }}
+                <span class="placeholder" data-placeholder="Почтовый индекс"></span>
+{#              <textarea class="form-control" name="message" id="message" rows="1"#}
+{#                placeholder="Комментарии к заказу"></textarea>#}
+            </div>
+          </form>
+        </div>
+        <div class="col-lg-4">
+          <div class="order_box">
+            <h2>Ваш заказ</h2>
+          <ul class="list list_2">
+              <li>
+                <a>Товар
+                  <span>Сумма</span>
+                </a>
+              </li>
+          </ul>
+            <ul class="list">
+              {% for detail in order.details.all %}
+              <li>
+                <a href="{{ detail.product.get_absolute_url }}">{{ detail.product.title }}
+                  <span class="middle">x {{ detail.count }}</span>
+                  <span class="last">{{ detail.price }} руб.</span>
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+            <ul class="list list_2">
+              <li>
+                <a>Доставка
+                  <span style="color: red">Бесплатно</span>
+                </a>
+              </li>
+              <li>
+                <a>Сумма заказа
+                  <span>{{ order.get_total }} руб.</span>
+                </a>
+              </li>
+            </ul>
+              <hr>
+            <div class="payment_item">
+              <p>
+                После оформления наш менеджер свяжется с Вами для уточнения деталей заказа.
+              </p>
+            </div>
+            <a class="btn_3 disabled" aria-disabled="true" href="#">Оформить заказ</a>
+          <div class="creat_account">
+              <label for="f-option4" style="text-align: center">Нажимая на кнопку Вы соглашаетесь с
+              <a href="{{ STATIC_URL }}public_ofert.odt">условиями магазина</a></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
