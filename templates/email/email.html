@@ -1,0 +1,12 @@
+{{ order.first_name }} {{ order.last_name }}<br>
+{{ order.number }}<br>
+{{ order.email }}<br>
+{{ order.post_code }} | {{ order.district }} | {{ order.city }} | {{ order.address }}<br>
+{{ order.comment }}<br>
+Сумма заказа: {{ order.get_total }}<br>
+Содержимое заказа:
+{% for detail in order.details.all %}
+Продукт: {{ detail.product.title }}
+Количество: {{ detail.product.count }}
+Цена: {{ detail.product.price }}
+{% endfor %}

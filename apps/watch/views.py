@@ -44,6 +44,7 @@ def contact(request):
 
 
 class ShopListView(ListView):
+    paginate_by = 6
     model = Product
     queryset = Product.objects.filter(publish=True)
     template_name = 'watch/shop.html'
