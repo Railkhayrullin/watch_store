@@ -1,8 +1,10 @@
 *.pyc
-local_settings.py
+config/local_setings.py
 .DS_Store
 .idea/*
 .idea
 static
 media
 db.sqlite3
+venv
+env

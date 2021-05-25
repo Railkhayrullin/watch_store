@@ -1,8 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.http import Http404
 from django.db.models import Q
 from django.contrib.sessions.models import Session
-from django.urls import reverse_lazy
 
 from django.views.generic import ListView, DetailView
 from apps.watch.models import Product
@@ -50,10 +49,15 @@ class ShopListView(ListView):
     template_name = 'watch/shop.html'
 
 
-class BlogListView(ListView):
-    paginate_by = 3
-    model = News
-    template_name = 'watch/blog.html'
+# class BlogListView(ListView):
+#     paginate_by = 3
+#     model = News
+#     template_name = 'watch/blog.html'
+#
+#
+# class BlogDetailView(DetailView):
+#     model = News
+#     template_name = 'watch/blog_detail.html'
 
 
 def product_detail(request, slug):

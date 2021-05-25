@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse_lazy
 
 
 class NewsCategory(models.Model):
@@ -27,6 +28,9 @@ class News(models.Model):
         ordering = ['-created_at']
         verbose_name = 'news'
         verbose_name_plural = 'news'
+
+    def get_absolute_url(self):
+        return reverse_lazy('blog_detail', kwargs={'pk': self.pk})
 
 
 class About(models.Model):

@@ -96,7 +96,7 @@ class Product(models.Model):
 
 
 class PriceType(models.Model):
-    title = models.CharField('brand', max_length=255, blank=False)
+    title = models.CharField('price type', max_length=255, help_text='"regular" or "discounted"', blank=False)
     publish = models.BooleanField('publish', default=True)
 
     def __str__(self):

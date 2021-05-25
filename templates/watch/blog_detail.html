@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="hero-cap text-center">
-                        <h2>БЛОГ</h2>
+                        <h2>СТАТЬЯ</h2>
                     </div>
                 </div>
             </div>
@@ -26,13 +26,13 @@
                 <nav style="--bs-breadcrumb-divider: '';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Блог</li>
+                        <li class="breadcrumb-item"><a href="{% url 'blog' %}">Блог</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Статья</li>
                     </ol>
                 </nav>
             </div>
             <div class="col-lg-12 mb-5 mb-lg-0">
                 <div class="blog_left_sidebar">
-                    {% for news in news_list %}
                     <article class="blog_item">
                         <div class="blog_item_img">
                             <img class="card-img rounded-0" src="{{ news.image.url }}" alt="">
@@ -42,48 +42,19 @@
                             </a>
                         </div>
                         <div class="blog_details">
-                            <a class="d-inline-block" href="{{ news.get_absolute_url }}">
+                            <a class="d-inline-block" href="#">
                                 <h2>{{ news.title }}</h2>
                             </a>
-                            <p>{{ news.content|truncatechars:150|safe}}</p>
+                            <p>{{ news.content}}</p>
                             <ul class="blog-info-link">
                                 <li><a href="" onclick="return false"><i class="far fa-check-square"></i>{{ news.category }}</a></li>
                             </ul>
                         </div>
                     </article>
-                    {% endfor %}
-
-
-                    <nav class="blog-pagination justify-content-center d-flex">
-                        <ul class="pagination">
-
-                            {% if page_obj.has_previous %}
-                            <li class="page-item">
-                                <a href="?page={{ page_obj.previous_page_number }}"
-                                   class="page-link" aria-label="Previous">
-                                    <i class="ti-angle-left"></i>
-                                </a>
-                            </li>
-                            {% endif %}
-
-                            <li class="page-item active">
-                                <a href="#" class="page-link" onclick="return false">{{ page_obj.number }}</a>
-                            </li>
-
-                            {% if page_obj.has_next %}
-                            <li class="page-item">
-                                <a href="?page={{ page_obj.next_page_number }}" class="page-link" aria-label="Next">
-                                    <i class="ti-angle-right"></i>
-                                </a>
-                            </li>
-                            {% endif %}
-
-                        </ul>
-                    </nav>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
+
 {% endblock %}
