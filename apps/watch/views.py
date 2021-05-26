@@ -3,9 +3,9 @@ from django.http import Http404
 from django.db.models import Q
 from django.contrib.sessions.models import Session
 
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView
 from apps.watch.models import Product
-from apps.pages.models import About, Contact, News
+from apps.pages.models import About, Contact
 from apps.watch.forms import ProductForm
 from apps.orders.models import Order, OrderDetail
 
